@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Fábrica de Palavras</title>
+<meta name="description" content="Fábrica de Palavras.">
+<meta name="theme-color" content="#1c1c1c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fábrica">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+
+  <!-- ============ TELA INICIAL ============ -->
+  <section id="scr-title" class="screen">
+    <div id="t-belt"></div>
+    <div id="t-items"></div>
+    <div class="title-wrap">
+      <div class="logo">
+        <div class="logo-1">FÁBRICA</div>
+        <div class="logo-2">DE PALAVRAS</div>
+      </div>
+      <p class="tagline">Monte palavras e frases na linha de produção!</p>
+      <div class="login">
+        <label for="in-name">Nome do operário</label>
+        <input id="in-name" type="text" maxlength="16" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Digite seu nome">
+        <div id="name-err" class="err"></div>
+        <button id="btn-enter" class="btn big">ENTRAR NA FÁBRICA</button>
+        <button id="btn-rank" class="btn alt">🏆 RANKING</button>
+      </div>
+    </div>
+    <div class="credit">A.R.S. HTML APPS e GAMES · Jogos de Alfabetização: “Pedagodigitais” de Alan Rezende / Cadastre suas questões aqui -><button id="btn-prof" class="subtle" type="button">Com o Prof</button></div>
+  </section>
+
+  <!-- ============ MAPA DE FASES ============ -->
+  <section id="scr-map" class="screen">
+    <header class="hud">
+      <button id="map-back" class="ibtn" aria-label="Voltar">←</button>
+      <div class="hud-title" id="map-who">Operário</div>
+      <div class="hud-stat" id="map-stars">★ 0</div>
+    </header>
+    <div id="levels"></div>
+    <div id="frases-box"></div>
+  </section>
+
+  <!-- ============ COM O PROF (jogador) ============ -->
+  <section id="scr-prof" class="screen">
+    <header class="hud">
+      <button id="prof-back" class="ibtn" aria-label="Voltar">←</button>
+      <div class="hud-title">COM O PROF</div>
+      <div class="hud-stat" id="prof-stars">★ 0</div>
+    </header>
+    <div id="prof-body"></div>
+  </section>
+
+  <!-- ============ OFICINA DO PROFESSOR ============ -->
+  <section id="scr-ofi" class="screen ofi">
+    <header class="hud">
+      <button id="ofi-back" class="ibtn" aria-label="Voltar">←</button>
+      <div class="hud-title" id="ofi-title">OFICINA DO PROFESSOR</div>
+    </header>
+    <div id="ofi-body"></div>
+  </section>
+
+  <!-- ============ JOGO ============ -->
+  <section id="scr-game" class="screen">
+    <header class="hud">
+      <button id="g-back" class="ibtn" aria-label="Mapa">☰</button>
+      <div class="hud-title" id="g-title">Nível 1 · Fase 1</div>
+      <div class="hud-stat" id="g-prog">0/10</div>
+      <div class="hud-stat" id="g-err">✖ 0</div>
+      <div class="hud-stat" id="g-score">0 pts</div>
+      <div class="hud-stat hidden" id="g-time">30:00</div>
+    </header>
+    <div id="g-world"></div>
+    <div id="toast"></div>
+  </section>
+
+  <!-- ============ OVERLAYS ============ -->
+  <div id="ov-config" class="ov">
+    <div class="panel">
+      <h2>⚙ CONFIGURAÇÕES</h2>
+      <button id="cfg-fs" class="btn wide">TELA CHEIA: <b>NÃO</b></button>
+      <button id="cfg-snd" class="btn wide">SOM: <b>SIM</b></button>
+      <button id="cfg-save" class="btn wide ok">SALVAR E SAIR</button>
+      <button id="cfg-wipe" class="btn wide danger">APAGAR DADOS</button>
+      <button id="cfg-close" class="btn wide alt">VOLTAR AO JOGO</button>
+    </div>
+  </div>
+
+  <div id="ov-rank" class="ov">
+    <div class="panel rank">
+      <h2>🏆 RANKING</h2>
+      <div class="tabs"><button id="rk-t1" class="tab on">CAMPANHA</button><button id="rk-t2" class="tab">FRASES · 30 MIN</button></div>
+      <div id="rk-list"></div>
+      <button id="rk-close" class="btn wide alt">FECHAR</button>
+    </div>
+  </div>
+
+  <div id="ov-result" class="ov">
+    <div class="panel result">
+      <h2 id="rs-title">FASE CONCLUÍDA!</h2>
+      <div id="rs-stars" class="stars">★★★</div>
+      <div id="rs-body" class="rs-body"></div>
+      <div id="rs-btns" class="rs-btns"></div>
+    </div>
+  </div>
+
+  <div id="ov-pass" class="ov">
+    <div class="panel">
+      <h2>🔒 OFICINA DO PROFESSOR</h2>
+      <p>Senha de acesso:</p>
+      <input id="pass-in" type="password" autocomplete="off" placeholder="senha">
+      <div id="pass-err"></div>
+      <button id="pass-ok" class="btn wide ok">ENTRAR</button>
+      <button id="pass-no" class="btn wide alt">CANCELAR</button>
+    </div>
+  </div>
+
+  <div id="ov-confirm" class="ov">
+    <div class="panel">
+      <h2 id="cf-title">Tem certeza?</h2>
+      <p id="cf-text"></p>
+      <button id="cf-yes" class="btn wide danger">SIM</button>
+      <button id="cf-no" class="btn wide alt">CANCELAR</button>
+    </div>
+  </div>
+
+  <button id="top-cfg" class="ibtn cfgbtn" aria-label="Configurações">⚙</button>
+</div>
+
+<script src="words.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
